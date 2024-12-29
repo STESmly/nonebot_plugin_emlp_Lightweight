@@ -1,0 +1,24 @@
+[project]
+name = "nonebot_plugin_emlp_Lightweight"
+version = "0.1.0"
+description = "轻量级恶魔轮盘插件"
+authors = [
+    {name = "STESmly", email = "3549337307@qq.com"},
+]
+dependencies = [
+    "nonebot2>=2.4.1",
+]
+requires-python = ">=3.9"
+readme = "README.md"
+license = {text = "MIT"}
+
+[project.urls]
+Homepage = "https://github.com/STESmly/nonebot_plugin_emlp_Lightweight"
+
+[build-system]
+requires = ["pdm-backend"]
+build-backend = "pdm.backend"
+
+
+[tool.pdm]
+distribution = true
