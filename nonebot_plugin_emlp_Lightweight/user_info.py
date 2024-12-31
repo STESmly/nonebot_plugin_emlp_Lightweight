@@ -9,7 +9,8 @@ async def get_opponent(uid):
     获取对手
     '''
     data_path = f'{module_path}/data/user/{uid}.json'
-    data = json.load(open(data_path, 'r', encoding='utf-8'))
+    with open(data_path, 'r', encoding='utf-8') as f:
+        data = json.load(f)
     return data['opponent']
 
 async def check_first_act(uid):
@@ -17,7 +18,8 @@ async def check_first_act(uid):
     检查是否是先手
     '''
     data_path = f'{module_path}/data/game/{uid}.json'
-    data = json.load(open(data_path, 'r', encoding='utf-8'))
+    with open(data_path, 'r', encoding='utf-8') as f:
+        data = json.load(f)
     if data['first_act'] == True:
         return True
     else:
@@ -28,7 +30,8 @@ async def get_props_list(uid):
     获取道具列表
     '''
     data_path = f'{module_path}/data/game/{uid}.json'
-    data = json.load(open(data_path, 'r', encoding='utf-8'))
+    with open(data_path, 'r', encoding='utf-8') as f:
+        data = json.load(f)
     return data['props']
 
 async def get_bullet_list(uid):
@@ -36,7 +39,8 @@ async def get_bullet_list(uid):
     获取子弹列表
     '''
     data_path = f'{module_path}/data/game/{uid}.json'
-    data = json.load(open(data_path, 'r', encoding='utf-8'))
+    with open(data_path, 'r', encoding='utf-8') as f:
+        data = json.load(f)
     return data['bullet']
 
 async def get_round(uid):
@@ -44,7 +48,8 @@ async def get_round(uid):
     获取回合数
     '''
     data_path = f'{module_path}/data/game/{uid}.json'
-    data = json.load(open(data_path, 'r', encoding='utf-8'))
+    with open(data_path, 'r', encoding='utf-8') as f:
+        data = json.load(f)
     return data['round']
 
 async def get_game_info(uid):
@@ -83,7 +88,8 @@ async def get_blood(uid):
     获取血量
     '''
     data_path = f'{module_path}/data/game/{uid}.json'
-    data = json.load(open(data_path, 'r', encoding='utf-8'))
+    with open(data_path, 'r', encoding='utf-8') as f:
+        data = json.load(f)
     return data['blood']
 
 async def get_handcuffs_type(uid):
@@ -91,7 +97,8 @@ async def get_handcuffs_type(uid):
     获取手铐的使用状态
     '''
     data_path = f'{module_path}/data/game/{uid}.json'
-    data = json.load(open(data_path, 'r', encoding='utf-8'))
+    with open(data_path, 'r', encoding='utf-8') as f:
+        data = json.load(f)
     return data['handcuffs']
 
 async def get_knife_type(uid):
@@ -99,7 +106,8 @@ async def get_knife_type(uid):
     获取小刀的使用状态
     '''
     data_path = f'{module_path}/data/game/{uid}.json'
-    data = json.load(open(data_path, 'r', encoding='utf-8'))
+    with open(data_path, 'r', encoding='utf-8') as f:
+        data = json.load(f)
     return data['knife']
 
 async def get_heal_type(uid):
@@ -107,7 +115,8 @@ async def get_heal_type(uid):
     获取治疗药是否能使用
     '''
     data_path = f'{module_path}/data/game/{uid}.json'
-    data = json.load(open(data_path, 'r', encoding='utf-8'))
+    with open(data_path, 'r', encoding='utf-8') as f:
+        data = json.load(f)
     return data['heal']
 
 async def get_user_type(uid):
@@ -116,7 +125,8 @@ async def get_user_type(uid):
     '''
     path=f'{module_path}/data/user/{uid}.json'
     if os.path.exists(path):
-        data = json.load(open(path, 'r', encoding='utf-8'))
+        with open(path, 'r', encoding='utf-8') as f:
+            data = json.load(f)
         if data['status'] == '游戏中':
             return True
         else:

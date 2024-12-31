@@ -22,7 +22,8 @@ async def check_bullet_type(uid,num = 0):
     检查子弹类型
     '''
     data_path = f'{module_path}/data/game/{uid}.json'
-    data = json.load(open(data_path, 'r', encoding='utf-8'))
+    with open(data_path, 'r', encoding='utf-8') as f:
+        data = json.load(f)
     return data['bullet'][num]
 
 async def check_bullet_num(uid):
@@ -30,7 +31,8 @@ async def check_bullet_num(uid):
     检查子弹数量
     '''
     data_path = f'{module_path}/data/game/{uid}.json'
-    data = json.load(open(data_path, 'r', encoding='utf-8'))
+    with open(data_path, 'r', encoding='utf-8') as f:
+        data = json.load(f)
     num = len(data['bullet'])
     if num == 0:
         return False
@@ -45,19 +47,24 @@ async def change_first_act(uid):
     uid2 = await get_opponent(uid1)
     data_path1 = f'{module_path}/data/game/{uid1}.json'
     data_path2 = f'{module_path}/data/game/{uid2}.json'
-    data1 = json.load(open(data_path1, 'r', encoding='utf-8'))
-    data2 = json.load(open(data_path2, 'r', encoding='utf-8'))
+    with open(data_path1, 'r', encoding='utf-8') as f:
+        data1 = json.load(f)
+    with open(data_path2, 'r', encoding='utf-8') as f:
+        data2 = json.load(f)
     data1['first_act'] = False
     data2['first_act'] = True
-    json.dump(data1, open(data_path1, 'w', encoding='utf-8'), ensure_ascii=False, indent=4)
-    json.dump(data2, open(data_path2, 'w', encoding='utf-8'), ensure_ascii=False, indent=4)
+    with open(data_path1, 'w', encoding='utf-8') as f:
+        json.dump(data1, f, ensure_ascii=False, indent=4)
+    with open(data_path2, 'w', encoding='utf-8') as f:
+        json.dump(data2, f, ensure_ascii=False, indent=4)
 
 async def check_props(uid,target):
     '''
     检查道具是否存在
     '''
     data_path = f'{module_path}/data/game/{uid}.json'
-    data = json.load(open(data_path, 'r', encoding='utf-8'))
+    with open(data_path, 'r', encoding='utf-8') as f:
+        data = json.load(f)
     if target in data['props']:
         return True
     else:
@@ -71,27 +78,33 @@ async def after_shoot(uid):
     uid2 = await get_opponent(uid1)
     data_path1 = f'{module_path}/data/game/{uid1}.json'
     data_path2 = f'{module_path}/data/game/{uid2}.json'
-    data1 = json.load(open(data_path1, 'r', encoding='utf-8'))
-    data2 = json.load(open(data_path2, 'r', encoding='utf-8'))
+    with open(data_path1, 'r', encoding='utf-8') as f:
+        data1 = json.load(f)
+    with open(data_path2, 'r', encoding='utf-8') as f:
+        data2 = json.load(f)
     data1['bullet'].pop(0)
     data1['handcuffs'] = False
     data1['knife'] = False
     data2['bullet'].pop(0)
     data2['handcuffs'] = False
     data2['knife'] = False
-    json.dump(data1, open(data_path1, 'w', encoding='utf-8'), ensure_ascii=False, indent=4)
-    json.dump(data2, open(data_path2, 'w', encoding='utf-8'), ensure_ascii=False, indent=4)
+    with open(data_path1, 'w', encoding='utf-8') as f:
+        json.dump(data1, f, ensure_ascii=False, indent=4)
+    with open(data_path2, 'w', encoding='utf-8') as f:
+        json.dump(data2, f, ensure_ascii=False, indent=4)
 
 async def delet_blood(uid, ad):
     """
     扣血
     """
     data_path = f'{module_path}/data/game/{uid}.json'
-    data = json.load(open(data_path, 'r', encoding='utf-8'))
+    with open(data_path, 'r', encoding='utf-8') as f:
+        data = json.load(f)
     data['blood'] -= ad
     if data['blood'] == 1 and data['round'] == 3:
         data['heal'] = False
-    json.dump(data, open(data_path, 'w', encoding='utf-8'), ensure_ascii=False, indent=4)
+    with open(data_path, 'w', encoding='utf-8') as f:
+        json.dump(data, f, ensure_ascii=False, indent=4)
 
 async def add_bullet_props(uid,uid2):
     '''
@@ -100,8 +113,10 @@ async def add_bullet_props(uid,uid2):
     uid1 = uid
     data_path1 = f'{module_path}/data/game/{uid1}.json'
     data_path2 = f'{module_path}/data/game/{uid2}.json'
-    data1 = json.load(open(data_path1, 'r', encoding='utf-8'))
-    data2 = json.load(open(data_path2, 'r', encoding='utf-8'))
+    with open(data_path1, 'r', encoding='utf-8') as f:
+        data1 = json.load(f)
+    with open(data_path2, 'r', encoding='utf-8') as f:
+        data2 = json.load(f)
     bullet = await get_bullet()
     props1, props2 = await props_at(4)
     data1['bullet'] = bullet
@@ -125,8 +140,10 @@ async def add_bullet_props(uid,uid2):
         'round': data1['round'],
         'status_up' : True
     }
-    json.dump(data1, open(data_path1, 'w', encoding='utf-8'), ensure_ascii=False, indent=4)
-    json.dump(data2, open(data_path2, 'w', encoding='utf-8'), ensure_ascii=False, indent=4)
+    with open(data_path1, 'w', encoding='utf-8') as f:
+        json.dump(data1, f, ensure_ascii=False, indent=4)
+    with open(data_path2, 'w', encoding='utf-8') as f:
+        json.dump(data2, f, ensure_ascii=False, indent=4)
     return res
 
 async def set_bullet_list(uid1, uid2, bullet_list):
@@ -135,18 +152,24 @@ async def set_bullet_list(uid1, uid2, bullet_list):
     """
     data_path1 = f'{module_path}/data/game/{uid1}.json'
     data_path2 = f'{module_path}/data/game/{uid2}.json'
-    data1 = json.load(open(data_path1, 'r', encoding='utf-8'))
-    data2 = json.load(open(data_path2, 'r', encoding='utf-8'))
+    with open(data_path1, 'r', encoding='utf-8') as f:
+        data1 = json.load(f)
+    with open(data_path2, 'r', encoding='utf-8') as f:
+        data2 = json.load(f)
     data1['bullet'] = bullet_list
     data2['bullet'] = bullet_list
-    json.dump(data1, open(data_path1, 'w', encoding='utf-8'), ensure_ascii=False, indent=4)
-    json.dump(data2, open(data_path2, 'w', encoding='utf-8'), ensure_ascii=False, indent=4)
+    with open(data_path1, 'w', encoding='utf-8') as f:
+        json.dump(data1, f, ensure_ascii=False, indent=4)
+    with open(data_path2, 'w', encoding='utf-8') as f:
+        json.dump(data2, f, ensure_ascii=False, indent=4)
 
 async def set_handcuffs_type(uid, handcuffs_type):
     '''
     设置手铐的使用状态(该函数暂时不做调用)
     '''
     data_path = f'{module_path}/data/game/{uid}.json'
-    data = json.load(open(data_path, 'r', encoding='utf-8'))
+    with open(data_path, 'r', encoding='utf-8') as f:
+        data = json.load(f)
     data['handcuffs'] = handcuffs_type
-    json.dump(data, open(data_path, 'w', encoding='utf-8'), ensure_ascii=False, indent=4)
+    with open(data_path, 'w', encoding='utf-8') as f:
+        json.dump(data, f, ensure_ascii=False, indent=4)

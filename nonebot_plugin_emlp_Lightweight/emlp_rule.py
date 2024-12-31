@@ -49,16 +49,20 @@ async def get_frist_act(uid1,uid2):
     first = random.choice([uid1,uid2])
     data_path1 = f'{module_path}/data/game/{uid1}.json'
     data_path2 = f'{module_path}/data/game/{uid2}.json'
-    data1 = json.load(open(data_path1, 'r', encoding='utf-8'))
-    data2 = json.load(open(data_path2, 'r', encoding='utf-8'))
+    with open(data_path1, 'r', encoding='utf-8') as f:
+        data1 = json.load(f)
+    with open(data_path2, 'r', encoding='utf-8') as f:
+        data2 = json.load(f)
     if first == uid1:
         data1['first_act'] = True
         data2['first_act'] = False
     else:
         data1['first_act'] = False
         data2['first_act'] = True
-    json.dump(data1, open(data_path1, 'w', encoding='utf-8'), ensure_ascii=False, indent=4)
-    json.dump(data2, open(data_path2, 'w', encoding='utf-8'), ensure_ascii=False, indent=4)
+    with open(data_path1, 'w', encoding='utf-8') as f:
+        json.dump(data1, f, ensure_ascii=False, indent=4)
+    with open(data_path2, 'w', encoding='utf-8') as f:
+        json.dump(data2, f, ensure_ascii=False, indent=4)
     return first
 
 
@@ -72,9 +76,11 @@ async def check_user(uid1,uid2):
     data_path1 = f'{module_path}/data/game/{uid1}.json'
     data_path2 = f'{module_path}/data/game/{uid2}.json'
     if os.path.exists(path1):
-        data1 = json.load(open(path1,'r',encoding='utf-8'))
+        with open(data_path1, 'r', encoding='utf-8') as f:
+            data1 = json.load(f)
         if os.path.exists(path2):
-            data2 = json.load(open(path2,'r',encoding='utf-8'))
+            with open(data_path2, 'r', encoding='utf-8') as f:
+                data2 = json.load(f)
             if data1['status'] == '游戏中' and data2['status'] == '游戏中':
                 data = {
                     'user': [uid1,uid2],
@@ -106,8 +112,10 @@ async def check_user(uid1,uid2):
                 data1['opponent'] = uid2
                 data2['status'] = '游戏中'
                 data2['opponent'] = uid1
-                json.dump(data1,open(path1,'w',encoding='utf-8'),ensure_ascii=False,indent=4)
-                json.dump(data2,open(path2,'w',encoding='utf-8'),ensure_ascii=False,indent=4)
+                with open(path1, 'w', encoding='utf-8') as f:
+                    json.dump(data1, f, ensure_ascii=False, indent=4)
+                with open(path2, 'w', encoding='utf-8') as f:
+                    json.dump(data2, f, ensure_ascii=False, indent=4)
                 return data
         else:
             if data1['status'] == '游戏中':
@@ -129,14 +137,19 @@ async def check_user(uid1,uid2):
                     'status' : '游戏中',
                     'opponent' : uid1
                 }
-                json.dump(data1,open(path1,'w',encoding='utf-8'),ensure_ascii=False,indent=4)
-                json.dump(data2,open(path2,'w',encoding='utf-8'),ensure_ascii=False,indent=4)
-                json.dump(Initialize,open(data_path2,'w',encoding='utf-8'),ensure_ascii=False,indent=4)
+                with open(path1, 'w', encoding='utf-8') as f:
+                    json.dump(data1, f, ensure_ascii=False, indent=4)
+                with open(path2, 'w', encoding='utf-8') as f:
+                    json.dump(data2, f, ensure_ascii=False, indent=4)
+                with open(data_path2,'w',encoding='utf-8') as f:
+                    json.dump(Initialize,f,ensure_ascii=False,indent=4)
                 return data
     elif os.path.exists(path2):
-        data2 = json.load(open(path2,'r',encoding='utf-8'))
+        with open(data_path2, 'r', encoding='utf-8') as f:
+            data2 = json.load(f)
         if os.path.exists(path1):
-            data1 = json.load(open(path1,'r',encoding='utf-8'))
+            with open(data_path1, 'r', encoding='utf-8') as f:
+                data1 = json.load(f)
             if data2['status'] == '游戏中' and data1['status'] == '游戏中':
                 data = {
                     'user': [uid1,uid2],
@@ -168,8 +181,10 @@ async def check_user(uid1,uid2):
                 data2['opponent'] = uid1
                 data1['status'] = '游戏中'
                 data1['opponent'] = uid2
-                json.dump(data2,open(path2,'w',encoding='utf-8'),ensure_ascii=False,indent=4)
-                json.dump(data1,open(path1,'w',encoding='utf-8'),ensure_ascii=False,indent=4)
+                with open(path1, 'w', encoding='utf-8') as f:
+                    json.dump(data1, f, ensure_ascii=False, indent=4)
+                with open(path2, 'w', encoding='utf-8') as f:
+                    json.dump(data2, f, ensure_ascii=False, indent=4)
                 return data
         else:
             if data2['status'] == '游戏中':
@@ -191,9 +206,12 @@ async def check_user(uid1,uid2):
                     'status' : '游戏中',
                     'opponent' : uid2
                 }
-                json.dump(data2,open(path2,'w',encoding='utf-8'),ensure_ascii=False,indent=4)
-                json.dump(data1,open(path1,'w',encoding='utf-8'),ensure_ascii=False,indent=4)
-                json.dump(Initialize,open(data_path1,'w',encoding='utf-8'),ensure_ascii=False,indent=4)
+                with open(path1, 'w', encoding='utf-8') as f:
+                    json.dump(data1, f, ensure_ascii=False, indent=4)
+                with open(path2, 'w', encoding='utf-8') as f:
+                    json.dump(data2, f, ensure_ascii=False, indent=4)
+                with open(data_path1, 'w', encoding='utf-8') as f:
+                    json.dump(Initialize,f,ensure_ascii=False,indent=4)
                 return data
     else:
         data = {
@@ -209,8 +227,12 @@ async def check_user(uid1,uid2):
             'status' : '游戏中',
             'opponent' : uid2
         }
-        json.dump(data2,open(path2,'w',encoding='utf-8'),ensure_ascii=False,indent=4)
-        json.dump(data1,open(path1,'w',encoding='utf-8'),ensure_ascii=False,indent=4)
-        json.dump(Initialize,open(data_path2,'w',encoding='utf-8'),ensure_ascii=False,indent=4)
-        json.dump(Initialize,open(data_path1,'w',encoding='utf-8'),ensure_ascii=False,indent=4)
+        with open(path1, 'w', encoding='utf-8') as f:
+            json.dump(data1, f, ensure_ascii=False, indent=4)
+        with open(path2, 'w', encoding='utf-8') as f:
+            json.dump(data2, f, ensure_ascii=False, indent=4)
+        with open(data_path2,'w',encoding='utf-8') as f:
+            json.dump(Initialize,f,ensure_ascii=False,indent=4)
+        with open(data_path1, 'w', encoding='utf-8') as f:
+            json.dump(Initialize,f,ensure_ascii=False,indent=4)
         return data

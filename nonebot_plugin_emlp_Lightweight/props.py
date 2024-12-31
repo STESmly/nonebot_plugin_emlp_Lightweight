@@ -28,10 +28,12 @@ async def use_prop_xiaodao(uid,toutou_type):
                 return False , {'type':False,'msg':'该道具无法重复使用'}
             else:
                 data_path = f'{module_path}/data/game/{uid}.json'
-                data = json.load(open(data_path, 'r', encoding='utf-8'))
+                with open(data_path, 'r', encoding='utf-8') as f:
+                    data = json.load(f)
                 data['knife'] = True
                 data['props'].remove('小刀')
-                json.dump(data, open(data_path, 'w', encoding='utf-8'), ensure_ascii=False, indent=4)
+                with open(data_path, 'w', encoding='utf-8') as f:
+                    json.dump(data,f, ensure_ascii=False, indent=4)
                 return True, {'type':True,'msg':'使用成功'}
         else:
             return False, {'type':False,'msg':'道具不存在'}
@@ -43,12 +45,16 @@ async def use_prop_xiaodao(uid,toutou_type):
             else:
                 data_path1 = f'{module_path}/data/game/{uid}.json'
                 data_path2 = f'{module_path}/data/game/{uid2}.json'
-                data1 = json.load(open(data_path1, 'r', encoding='utf-8'))
-                data2 = json.load(open(data_path2, 'r', encoding='utf-8'))
+                with open(data_path1, 'r', encoding='utf-8') as f:
+                    data1 = json.load(f)
+                with open(data_path2, 'r', encoding='utf-8') as f:
+                    data2 = json.load(f)
                 data1['knife'] = True
                 data2['props'].remove('小刀')
-                json.dump(data1, open(data_path1, 'w', encoding='utf-8'), ensure_ascii=False, indent=4)
-                json.dump(data2, open(data_path2, 'w', encoding='utf-8'), ensure_ascii=False, indent=4)
+                with open(data_path1, 'w', encoding='utf-8') as f:
+                    json.dump(data1,f, ensure_ascii=False, indent=4)
+                with open(data_path2, 'w', encoding='utf-8') as f:
+                    json.dump(data2, f, ensure_ascii=False, indent=4)
                 return True, {'type':True,'msg':'使用成功'}
         else:
             return False, {'type':False,'msg':'道具不存在'}
@@ -64,10 +70,12 @@ async def use_prop_huazi(uid,toutou_type):
             blood = await get_blood(uid)
             if heal_type:
                 data_path = f'{module_path}/data/game/{uid}.json'
-                data = json.load(open(data_path, 'r', encoding='utf-8'))
+                with open(data_path, 'r', encoding='utf-8') as f:
+                    data = json.load(f)
                 data['blood'] = blood + 1
                 data['props'].remove('华子')
-                json.dump(data, open(data_path, 'w', encoding='utf-8'), ensure_ascii=False, indent=4)
+                with open(data_path, 'w', encoding='utf-8') as f:
+                    json.dump(data, f, ensure_ascii=False, indent=4)
                 return True, {'type':True,'msg':'使用成功','hurt': 1}
             else:
                 return False , {'type':False,'msg':'该状态无法回血'}
@@ -80,12 +88,16 @@ async def use_prop_huazi(uid,toutou_type):
             if heal_type:
                 data_path1 = f'{module_path}/data/game/{uid}.json'
                 data_path2 = f'{module_path}/data/game/{uid2}.json'
-                data1 = json.load(open(data_path1, 'r', encoding='utf-8'))
-                data2 = json.load(open(data_path2, 'r', encoding='utf-8'))
+                with open(data_path1, 'r', encoding='utf-8') as f:
+                    data1 = json.load(f)
+                with open(data_path2, 'r', encoding='utf-8') as f:
+                    data2 = json.load(f)
                 data1['blood'] = blood + 1
                 data2['props'].remove('华子')
-                json.dump(data1, open(data_path1, 'w', encoding='utf-8'), ensure_ascii=False, indent=4)
-                json.dump(data2, open(data_path2, 'w', encoding='utf-8'), ensure_ascii=False, indent=4)
+                with open(data_path1, 'w', encoding='utf-8') as f:
+                    json.dump(data1, f, ensure_ascii=False, indent=4)
+                with open(data_path2, 'w', encoding='utf-8') as f:
+                    json.dump(data2, f, ensure_ascii=False, indent=4)
                 return True, {'type':True,'msg':'使用成功','hurt': 1}
             else:
                 return False , {'type':False,'msg':'该状态无法回血'}
@@ -119,9 +131,11 @@ async def use_prop_yingliao(uid,toutou_type):
                 data1 = await add_bullet_props(uid, uid2)
                 data.update(data1)
             data_path = f'{module_path}/data/game/{uid}.json'
-            res = json.load(open(data_path, 'r', encoding='utf-8'))
+            with open(data_path, 'r', encoding='utf-8') as f:
+                res = json.load(f)
             res['props'].remove('饮料')
-            json.dump(res, open(data_path, 'w', encoding='utf-8'), ensure_ascii=False, indent=4)
+            with open(data_path, 'w', encoding='utf-8') as f:
+                json.dump(res, f, ensure_ascii=False, indent=4)
             return True,data
         else:
             return False, {'type':False,'msg':'道具不存在'}
@@ -147,9 +161,11 @@ async def use_prop_yingliao(uid,toutou_type):
                 data1 = await add_bullet_props(uid, uid2)
                 data.update(data1)
             data_path = f'{module_path}/data/game/{uid2}.json'
-            res = json.load(open(data_path, 'r', encoding='utf-8'))
+            with open(data_path, 'r', encoding='utf-8') as f:     
+                res = json.load(f)
             res['props'].remove('饮料')
-            json.dump(res, open(data_path, 'w', encoding='utf-8'), ensure_ascii=False, indent=4)
+            with open(data_path, 'w', encoding='utf-8') as f:     
+                json.dump(res, f, ensure_ascii=False, indent=4)
             return True,data
         else:
             return False, {'type':False,'msg':'道具不存在'}
@@ -172,9 +188,11 @@ async def use_prop_shouji(uid,toutou_type):
                 'private_type':True
             }
             data_path = f'{module_path}/data/game/{uid}.json'
-            res = json.load(open(data_path, 'r', encoding='utf-8'))
+            with open(data_path, 'r', encoding='utf-8') as f:
+                res = json.load(f)
             res['props'].remove('手机')
-            json.dump(res, open(data_path, 'w', encoding='utf-8'), ensure_ascii=False, indent=4)
+            with open(data_path, 'w', encoding='utf-8') as f:
+                json.dump(res, f, ensure_ascii=False, indent=4)
             return True,data
         else:
             return False, {'type':False,'msg':'道具不存在'}
@@ -191,9 +209,11 @@ async def use_prop_shouji(uid,toutou_type):
                 'private_type':True
             }
             data_path = f'{module_path}/data/game/{uid2}.json'
-            res = json.load(open(data_path, 'r', encoding='utf-8'))
+            with open(data_path, 'r', encoding='utf-8') as f:
+                res = json.load(f)
             res['props'].remove('手机')
-            json.dump(res, open(data_path, 'w', encoding='utf-8'), ensure_ascii=False, indent=4)
+            with open(data_path, 'w', encoding='utf-8') as f:
+                json.dump(res, f, ensure_ascii=False, indent=4)
             return True,data
         else:
             return False, {'type':False,'msg':'道具不存在'}
@@ -212,9 +232,11 @@ async def use_prop_touzi(uid, toutou_type):
                 'msg':'使用成功,子弹顺序已打乱'
             }
             data_path = f'{module_path}/data/game/{uid}.json'
-            res = json.load(open(data_path, 'r', encoding='utf-8'))
+            with open(data_path, 'r', encoding='utf-8') as f:
+                res = json.load(f)
             res['props'].remove('骰子')
-            json.dump(res, open(data_path, 'w', encoding='utf-8'), ensure_ascii=False, indent=4)
+            with open(data_path, 'w', encoding='utf-8') as f:
+                json.dump(res, f, ensure_ascii=False, indent=4)
             return True,data
         else:
             return False, {'type':False,'msg':'道具不存在'}
@@ -228,9 +250,11 @@ async def use_prop_touzi(uid, toutou_type):
                 'msg':'使用成功,子弹顺序已打乱'
             }
             data_path = f'{module_path}/data/game/{uid2}.json'
-            res = json.load(open(data_path, 'r', encoding='utf-8'))
+            with open(data_path, 'r', encoding='utf-8') as f:
+                res = json.load(f)
             res['props'].remove('骰子')
-            json.dump(res, open(data_path, 'w', encoding='utf-8'), ensure_ascii=False, indent=4)
+            with open(data_path, 'w', encoding='utf-8') as f:
+                json.dump(res, f, ensure_ascii=False, indent=4)
             return True,data
         else:
             return False, {'type':False,'msg':'道具不存在'}
@@ -247,10 +271,12 @@ async def use_prop_shoukao(uid,toutou_type):
                 return False , {'type':False,'msg':'该道具无法重复使用'}
             else:
                 data_path = f'{module_path}/data/game/{uid}.json'
-                data = json.load(open(data_path, 'r', encoding='utf-8'))
+                with open(data_path, 'r', encoding='utf-8') as f:
+                    data = json.load(f)
                 data['handcuffs'] = True
                 data['props'].remove('手铐')
-                json.dump(data, open(data_path, 'w', encoding='utf-8'), ensure_ascii=False, indent=4)
+                with open(data_path, 'w', encoding='utf-8') as f:
+                    json.dump(data, f, ensure_ascii=False, indent=4)
                 return True, {'type':True,'msg':'使用成功'}
         else:
             return False, {'type':False,'msg':'道具不存在'}
@@ -262,12 +288,16 @@ async def use_prop_shoukao(uid,toutou_type):
             else:
                 data_path1 = f'{module_path}/data/game/{uid}.json'
                 data_path2 = f'{module_path}/data/game/{uid2}.json'
-                data1 = json.load(open(data_path1, 'r', encoding='utf-8'))
-                data2 = json.load(open(data_path2, 'r', encoding='utf-8'))
+                with open(data_path1, 'r', encoding='utf-8') as f:
+                    data1 = json.load(f)
+                with open(data_path2, 'r', encoding='utf-8') as f:
+                    data2 = json.load(f)
                 data1['handcuffs'] = True
                 data2['props'].remove('手铐')
-                json.dump(data1, open(data_path1, 'w', encoding='utf-8'), ensure_ascii=False, indent=4)
-                json.dump(data2, open(data_path2, 'w', encoding='utf-8'), ensure_ascii=False, indent=4)
+                with open(data_path1, 'w', encoding='utf-8') as f:
+                    json.dump(data1, f, ensure_ascii=False, indent=4)
+                with open(data_path2, 'w', encoding='utf-8') as f:
+                    json.dump(data2, f, ensure_ascii=False, indent=4)
                 return True, {'type':True,'msg':'使用成功'}
         else:
             return False, {'type':False,'msg':'道具不存在'}
@@ -284,17 +314,21 @@ async def use_prop_guoqiyao(uid,toutou_type):
             use_type = random.choices([True,False],k=1)[0]
             if heal_type and use_type:
                 data_path = f'{module_path}/data/game/{uid}.json'
-                data = json.load(open(data_path, 'r', encoding='utf-8'))
+                with open(data_path, 'r', encoding='utf-8') as f:
+                    data = json.load(f)
                 data['blood'] = blood + 2
                 data['props'].remove('过期药')
-                json.dump(data, open(data_path, 'w', encoding='utf-8'), ensure_ascii=False, indent=4)
+                with open(data_path, 'w', encoding='utf-8') as f:
+                    json.dump(data, f, ensure_ascii=False, indent=4)
                 return True, {'type':True,'msg':'使用成功','hurt': 2}
             elif heal_type and not use_type:
                 if blood > 1:
                     data_path = f'{module_path}/data/game/{uid}.json'
-                    data = json.load(open(data_path, 'r', encoding='utf-8'))
+                    with open(data_path, 'r', encoding='utf-8') as f:
+                        data = json.load(f)
                     data['props'].remove('过期药')
-                    json.dump(data, open(data_path, 'w', encoding='utf-8'), ensure_ascii=False, indent=4)
+                    with open(data_path, 'w', encoding='utf-8') as f:
+                        json.dump(data, f, ensure_ascii=False, indent=4)
                     await delet_blood(uid, 1)
                     return True, {'type':True,'msg':'使用成功','hurt': -1}
                 else:
@@ -313,19 +347,25 @@ async def use_prop_guoqiyao(uid,toutou_type):
             if heal_type and use_type:
                 data_path1 = f'{module_path}/data/game/{uid}.json'
                 data_path2 = f'{module_path}/data/game/{uid2}.json'
-                data1 = json.load(open(data_path1, 'r', encoding='utf-8'))
-                data2 = json.load(open(data_path2, 'r', encoding='utf-8'))
+                with open(data_path1, 'r', encoding='utf-8') as f:
+                    data1 = json.load(f)
+                with open(data_path2, 'r', encoding='utf-8') as f:
+                    data2 = json.load(f)
                 data1['blood'] = blood + 2
                 data2['props'].remove('过期药')
-                json.dump(data1, open(data_path1, 'w', encoding='utf-8'), ensure_ascii=False, indent=4)
-                json.dump(data2, open(data_path2, 'w', encoding='utf-8'), ensure_ascii=False, indent=4)
+                with open(data_path1, 'w', encoding='utf-8') as f:
+                    json.dump(data1, f, ensure_ascii=False, indent=4)
+                with open(data_path2, 'w', encoding='utf-8') as f:
+                    json.dump(data2, f, ensure_ascii=False, indent=4)
                 return True, {'type':True,'msg':'使用成功','hurt': 2}
             elif heal_type and not use_type:
                 if blood > 1:
                     data_path2 = f'{module_path}/data/game/{uid2}.json'
-                    data2 = json.load(open(data_path2, 'r', encoding='utf-8'))
+                    with open(data_path2, 'r', encoding='utf-8') as f:
+                        data2 = json.load(f)
                     data2['props'].remove('过期药')
-                    json.dump(data2, open(data_path2, 'w', encoding='utf-8'), ensure_ascii=False, indent=4)
+                    with open(data_path2, 'w', encoding='utf-8') as f:
+                        json.dump(data2, f, ensure_ascii=False, indent=4)
                     await delet_blood(uid, 1)
                     return True, {'type':True,'msg':'使用成功','hurt': -1}
                 else:
@@ -350,9 +390,11 @@ async def use_prop_fangdajing(uid,toutou_type):
                 'thebullet' : bullet
             }
             data_path = f'{module_path}/data/game/{uid}.json'
-            res = json.load(open(data_path, 'r', encoding='utf-8'))
+            with open(data_path, 'r', encoding='utf-8') as f:
+                res = json.load(f)
             res['props'].remove('放大镜')
-            json.dump(res, open(data_path, 'w', encoding='utf-8'), ensure_ascii=False, indent=4)
+            with open(data_path, 'w', encoding='utf-8') as f:
+                json.dump(res, f, ensure_ascii=False, indent=4)
             return True,data
         else:
             return False, {'type':False,'msg':'道具不存在'}
@@ -365,9 +407,11 @@ async def use_prop_fangdajing(uid,toutou_type):
                 'thebullet' : bullet
             }
             data_path = f'{module_path}/data/game/{uid2}.json'
-            res = json.load(open(data_path, 'r', encoding='utf-8'))
+            with open(data_path, 'r', encoding='utf-8') as f:
+                res = json.load(f)
             res['props'].remove('放大镜')
-            json.dump(res, open(data_path, 'w', encoding='utf-8'), ensure_ascii=False, indent=4)
+            with open(data_path, 'w', encoding='utf-8') as f:
+                json.dump(res, f, ensure_ascii=False, indent=4)
             return True,data
         else:
             return False, {'type':False,'msg':'道具不存在'}
@@ -390,9 +434,11 @@ async def use_prop_nizhuanqi(uid,toutou_type):
                 'msg':'使用成功'
             }
             data_path = f'{module_path}/data/game/{uid}.json'
-            res = json.load(open(data_path, 'r', encoding='utf-8'))
+            with open(data_path, 'r', encoding='utf-8') as f:
+                res = json.load(f)
             res['props'].remove('逆转器')
-            json.dump(res, open(data_path, 'w', encoding='utf-8'), ensure_ascii=False, indent=4)
+            with open(data_path, 'w', encoding='utf-8') as f:
+                json.dump(res, f, ensure_ascii=False, indent=4)
             return True,data
         else:
             return False, {'type':False,'msg':'道具不存在'}
@@ -409,9 +455,11 @@ async def use_prop_nizhuanqi(uid,toutou_type):
                 'msg':'使用成功'
             }
             data_path = f'{module_path}/data/game/{uid2}.json'
-            res = json.load(open(data_path, 'r', encoding='utf-8'))
+            with open(data_path, 'r', encoding='utf-8') as f:
+                res = json.load(f)
             res['props'].remove('逆转器')
-            json.dump(res, open(data_path, 'w', encoding='utf-8'), ensure_ascii=False, indent=4)
+            with open(data_path, 'w', encoding='utf-8') as f:
+                json.dump(res, f, ensure_ascii=False, indent=4)
             return True,data
         else:
             return False, {'type':False,'msg':'道具不存在'}
@@ -426,9 +474,11 @@ async def use_prop_toutou(uid):
                 'msg':'使用成功'
             }
             data_path = f'{module_path}/data/game/{uid}.json'
-            res = json.load(open(data_path, 'r', encoding='utf-8'))
+            with open(data_path, 'r', encoding='utf-8') as f:
+                res = json.load(f)
             res['props'].remove('偷偷')
-            json.dump(res, open(data_path, 'w', encoding='utf-8'), ensure_ascii=False, indent=4)
+            with open(data_path, 'w', encoding='utf-8') as f:
+                json.dump(res, f, ensure_ascii=False, indent=4)
             return True,data
     else:
         return False, {'type':False,'msg':'道具不存在'}

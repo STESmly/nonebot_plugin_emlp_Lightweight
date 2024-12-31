@@ -20,7 +20,7 @@ __plugin_meta__ = PluginMetadata(
     description="该插件为用户提供基础的游戏逻辑，但需要用户调用该插件提供的函数，自己进行传参和交互反馈的制作，不拘泥于个人开发者的风格",
     usage="参考项目的readme",
 
-    type="application",
+    type="library",
     # 发布必填，当前有效类型有：`library`（为其他插件编写提供功能），`application`（向机器人用户提供功能）。
 
     homepage="https://github.com/STESmly/nonebot_plugin_emlp_Lightweight",
