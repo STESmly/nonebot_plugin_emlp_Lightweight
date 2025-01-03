@@ -17,10 +17,10 @@ async def end_game(uid1,uid2):
     """
     结束游戏
     """
-    path1=f'{module_path}/data/user/{uid1}.json'
-    path2=f'{module_path}/data/user/{uid2}.json'
-    data_path1 = f'{module_path}/data/game/{uid1}.json'
-    data_path2 = f'{module_path}/data/game/{uid2}.json'
+    path1=f'{user_path}/{uid1}.json'
+    path2=f'{user_path}/{uid2}.json'
+    data_path1 = f'{game_path}/{uid1}.json'
+    data_path2 = f'{game_path}/{uid2}.json'
     with open(path1,'w',encoding='utf-8') as f:
         json.dump(Initialize2,f,ensure_ascii=False,indent=4)
     with open(path2,'w',encoding='utf-8') as f:
@@ -35,8 +35,8 @@ async def set_all_blood(uid1, uid2, blood):
     '''
     设置血量
     '''
-    data_path1 = f'{module_path}/data/game/{uid1}.json'
-    data_path2 = f'{module_path}/data/game/{uid2}.json'
+    data_path1 = f'{game_path}/{uid1}.json'
+    data_path2 = f'{game_path}/{uid2}.json'
     with open(data_path1,'r',encoding='utf-8') as f:
         data1 = json.load(f)
     with open(data_path2,'r',encoding='utf-8') as f:
@@ -52,8 +52,8 @@ async def save_bullet_props(uid1, uid2, bullet, props1, props2):
     '''
     保存子弹和道具
     '''
-    data_path1 = f'{module_path}/data/game/{uid1}.json'
-    data_path2 = f'{module_path}/data/game/{uid2}.json'
+    data_path1 = f'{game_path}/{uid1}.json'
+    data_path2 = f'{game_path}/{uid2}.json'
     with open(data_path1,'r',encoding='utf-8') as f:
         data1 = json.load(f)
     with open(data_path2,'r',encoding='utf-8') as f:
@@ -83,8 +83,8 @@ async def change_round(uid1, uid2):
     '''
     改变回合
     '''
-    data_path1 = f'{module_path}/data/game/{uid1}.json'
-    data_path2 = f'{module_path}/data/game/{uid2}.json'
+    data_path1 = f'{game_path}/{uid1}.json'
+    data_path2 = f'{game_path}/{uid2}.json'
     with open(data_path1,'r',encoding='utf-8') as f:
         data1 = json.load(f)
     with open(data_path2,'r',encoding='utf-8') as f:

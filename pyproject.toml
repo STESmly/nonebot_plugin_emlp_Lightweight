@@ -1,12 +1,13 @@
 [project]
 name = "nonebot_plugin_emlp_Lightweight"
-version = "0.1.1"
+version = "0.1.2"
 description = "轻量级恶魔轮盘插件"
 authors = [
     {name = "STESmly", email = "3549337307@qq.com"},
 ]
 dependencies = [
     "nonebot2>=2.4.1",
+    "nonebot-plugin-localstore>=0.7.3",
 ]
 requires-python = ">=3.9"
 readme = "README.md"

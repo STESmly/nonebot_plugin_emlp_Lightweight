@@ -21,7 +21,7 @@ async def check_bullet_type(uid,num = 0):
     '''
     检查子弹类型
     '''
-    data_path = f'{module_path}/data/game/{uid}.json'
+    data_path = f'{game_path}/{uid}.json'
     with open(data_path, 'r', encoding='utf-8') as f:
         data = json.load(f)
     return data['bullet'][num]
@@ -30,7 +30,7 @@ async def check_bullet_num(uid):
     '''
     检查子弹数量
     '''
-    data_path = f'{module_path}/data/game/{uid}.json'
+    data_path = f'{game_path}/{uid}.json'
     with open(data_path, 'r', encoding='utf-8') as f:
         data = json.load(f)
     num = len(data['bullet'])
@@ -39,14 +39,13 @@ async def check_bullet_num(uid):
     else:
         return num
     
-async def change_first_act(uid):
+async def change_first_act(uid1):
     '''
     改变先手
     '''
-    uid1 = uid
     uid2 = await get_opponent(uid1)
-    data_path1 = f'{module_path}/data/game/{uid1}.json'
-    data_path2 = f'{module_path}/data/game/{uid2}.json'
+    data_path1 = f'{game_path}/{uid1}.json'
+    data_path2 = f'{game_path}/{uid2}.json'
     with open(data_path1, 'r', encoding='utf-8') as f:
         data1 = json.load(f)
     with open(data_path2, 'r', encoding='utf-8') as f:
@@ -62,7 +61,7 @@ async def check_props(uid,target):
     '''
     检查道具是否存在
     '''
-    data_path = f'{module_path}/data/game/{uid}.json'
+    data_path = f'{game_path}/{uid}.json'
     with open(data_path, 'r', encoding='utf-8') as f:
         data = json.load(f)
     if target in data['props']:
@@ -70,14 +69,13 @@ async def check_props(uid,target):
     else:
         return False
 
-async def after_shoot(uid):
+async def after_shoot(uid1):
     '''
     消除子弹
     '''
-    uid1 = uid
     uid2 = await get_opponent(uid1)
-    data_path1 = f'{module_path}/data/game/{uid1}.json'
-    data_path2 = f'{module_path}/data/game/{uid2}.json'
+    data_path1 = f'{game_path}/{uid1}.json'
+    data_path2 = f'{game_path}/{uid2}.json'
     with open(data_path1, 'r', encoding='utf-8') as f:
         data1 = json.load(f)
     with open(data_path2, 'r', encoding='utf-8') as f:
@@ -97,7 +95,7 @@ async def delet_blood(uid, ad):
     """
     扣血
     """
-    data_path = f'{module_path}/data/game/{uid}.json'
+    data_path = f'{game_path}/{uid}.json'
     with open(data_path, 'r', encoding='utf-8') as f:
         data = json.load(f)
     data['blood'] -= ad
@@ -106,13 +104,12 @@ async def delet_blood(uid, ad):
     with open(data_path, 'w', encoding='utf-8') as f:
         json.dump(data, f, ensure_ascii=False, indent=4)
 
-async def add_bullet_props(uid,uid2):
+async def add_bullet_props(uid1,uid2):
     '''
     补充子弹和道具
     '''
-    uid1 = uid
-    data_path1 = f'{module_path}/data/game/{uid1}.json'
-    data_path2 = f'{module_path}/data/game/{uid2}.json'
+    data_path1 = f'{game_path}/{uid1}.json'
+    data_path2 = f'{game_path}/{uid2}.json'
     with open(data_path1, 'r', encoding='utf-8') as f:
         data1 = json.load(f)
     with open(data_path2, 'r', encoding='utf-8') as f:
@@ -150,8 +147,8 @@ async def set_bullet_list(uid1, uid2, bullet_list):
     """
     设置子弹列表
     """
-    data_path1 = f'{module_path}/data/game/{uid1}.json'
-    data_path2 = f'{module_path}/data/game/{uid2}.json'
+    data_path1 = f'{game_path}/{uid1}.json'
+    data_path2 = f'{game_path}/{uid2}.json'
     with open(data_path1, 'r', encoding='utf-8') as f:
         data1 = json.load(f)
     with open(data_path2, 'r', encoding='utf-8') as f:
@@ -167,7 +164,7 @@ async def set_handcuffs_type(uid, handcuffs_type):
     '''
     设置手铐的使用状态(该函数暂时不做调用)
     '''
-    data_path = f'{module_path}/data/game/{uid}.json'
+    data_path = f'{game_path}/{uid}.json'
     with open(data_path, 'r', encoding='utf-8') as f:
         data = json.load(f)
     data['handcuffs'] = handcuffs_type

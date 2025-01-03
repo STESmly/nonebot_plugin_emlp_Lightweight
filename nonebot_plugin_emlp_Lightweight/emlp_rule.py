@@ -1,5 +1,5 @@
 import random,json,os
-from pathlib import Path
+from .user_info import *
 
 Initialize = {
     "blood" : 0,   ##血量
@@ -11,7 +11,6 @@ Initialize = {
     "first_act" : True,   ##是否是先手
     "knife" : False,   ##是否使用小刀
 }
-module_path: Path = Path(__file__).parent
 props_probability = {"小刀":2,"华子":2,"饮料":2,"手机":2,"骰子":1,"手铐":2,"偷偷":2,"过期药":2,"放大镜":2,"逆转器":2}
 async def props_at(num_items:int,probability=props_probability):
     """
@@ -47,8 +46,8 @@ async def get_frist_act(uid1,uid2):
     谁先行动
     '''
     first = random.choice([uid1,uid2])
-    data_path1 = f'{module_path}/data/game/{uid1}.json'
-    data_path2 = f'{module_path}/data/game/{uid2}.json'
+    data_path1 = f'{game_path}/{uid1}.json'
+    data_path2 = f'{game_path}/{uid2}.json'
     with open(data_path1, 'r', encoding='utf-8') as f:
         data1 = json.load(f)
     with open(data_path2, 'r', encoding='utf-8') as f:
@@ -71,10 +70,10 @@ async def check_user(uid1,uid2):
     检查用户是否在游戏中
     uid:用户id
     '''
-    path1=f'{module_path}/data/user/{uid1}.json'
-    path2=f'{module_path}/data/user/{uid2}.json'
-    data_path1 = f'{module_path}/data/game/{uid1}.json'
-    data_path2 = f'{module_path}/data/game/{uid2}.json'
+    path1=f'{user_path}/{uid1}.json'
+    path2=f'{user_path}/{uid2}.json'
+    data_path1 = f'{game_path}/{uid1}.json'
+    data_path2 = f'{game_path}/{uid2}.json'
     if os.path.exists(path1):
         with open(data_path1, 'r', encoding='utf-8') as f:
             data1 = json.load(f)
