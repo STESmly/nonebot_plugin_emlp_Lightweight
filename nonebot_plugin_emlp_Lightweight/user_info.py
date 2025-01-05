@@ -1,12 +1,13 @@
 import json
 import os
-from pathlib import Path
 from nonebot import require
 require("nonebot_plugin_localstore")
 import nonebot_plugin_localstore as store
 
-game_path : Path = store.get_plugin_data_file("emlp_data/geme")
-user_path : Path = store.get_plugin_data_file("emlp_data/user")
+data_dir = store.get_plugin_data_dir()
+
+game_path = data_dir / "game"
+user_path = data_dir / "user"
 
 
 async def get_opponent(uid):

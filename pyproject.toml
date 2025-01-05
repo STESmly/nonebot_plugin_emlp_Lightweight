@@ -1,6 +1,6 @@
 [project]
 name = "nonebot_plugin_emlp_Lightweight"
-version = "0.1.2"
+version = "0.1.3"
 description = "轻量级恶魔轮盘插件"
 authors = [
     {name = "STESmly", email = "3549337307@qq.com"},
