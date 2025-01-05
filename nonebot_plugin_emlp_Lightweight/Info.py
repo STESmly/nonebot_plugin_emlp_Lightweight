@@ -1,4 +1,4 @@
-from pydantic import BaseModel,ConfigDict
+from pydantic import BaseModel
 
 
 class EmlpEvent(BaseModel):
@@ -56,5 +56,3 @@ class EmlpEvent(BaseModel):
         - True : 需要私聊反馈
         - False : 不需要私聊反馈
     """
-
-    model_config = ConfigDict(extra="allow")
